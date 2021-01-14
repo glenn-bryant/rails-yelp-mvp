@@ -1,2 +1,18 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<h1><%= @restaurant.name %></h1>
+<h1><%= @restaurant.address %></h1>
+<h1><%= @restaurant.category %></h1>
+
+<% if @restaurant.reviews.present? %>
+  <% @restaurant.reviews.each do |review| %>
+      <%= review.rating %>
+      <%= review.content %>
+  <% end %>  
+  <% else %>
+    <h2>No reviews in this restaurant yet, add some!</h2>
+<% end %>
+<h2>Add a review:</h2>
+  <%= simple_form_for [@restaurant, @review] do |f| %>
+    <%= f.input :rating, placeholder: "Choose a number from 0 to 5" %>
+    <%= f.input :content %>
+    <%= f.submit "Add", class: "btn btn-primary" %>
+  <% end %>
